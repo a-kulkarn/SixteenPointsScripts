@@ -105,6 +105,6 @@ procedure Main()
 
     bgroups := BrauerGroupDigest(GM, subgroups);
 
-    print "Brauer groups that are possible:"
+    print "Brauer groups that are possible:";
     print Set(bgroups);
 end procedure;
