@@ -25,6 +25,10 @@ function PossibleGaloisModules(GM, subgroup_list)
     return data_list;
 end function;
 
+function BrauerGroups(data_list)
+    return [<Rank(cg), Moduli(cg)> where cg := CohomologyGroup(M,1) : M in data_list];
+end function;
+
 
 // Records a digested list of the first cohomology groups.
 function BrauerGroupDigest(GM, subgroup_list)
@@ -49,18 +53,8 @@ function BrauerGroupDigest(GM, subgroup_list)
     return data_list;    
 end function;
 
-// Use to extract cohomology group.
-// CohomologyGroup(GM,1);
 
-// Use to extract the column moduli of a ModTupRng
-// Moduli(H1);
-
-function BrauerGroups(data_list)
-    return [<Rank(cg), Moduli(cg)> where cg := CohomologyGroup(M,1) : M in data_list];
-end function;
-
-
-function CreateMyData()
+function CreateAbstractWDModule()
     RE := RootSystem("E8");
     WE := ChangeRing(ReflectionGroup(CoxeterGroup(RE)), Integers());
 
@@ -78,6 +72,8 @@ function CreateMyData()
     return WD, GM;
 end function;
 
+////////////////////////
+// Loading and saving
 procedure MakeAndSaveSubgroups(WD)
     anch := Time();
     subgroups := Subgroups(WD);
@@ -95,5 +91,17 @@ function LoadData()
 end function;
 
 
+////////////////////////
+// Main script
 
+procedure Main()
+    try
+	WD, GM, subgroups := LoadData();
+    catch e
+	WD, GM := CreateAbstractWDModule();
+	MakeAndSaveSubgroups(WD);
+	WD, GM, subgroups := LoadData();
+    end try;
 
+    print BrauerGroupDigest();
+end procedure;

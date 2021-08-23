@@ -11,7 +11,6 @@ mons2S := Monomials((y2+y3+y4)^2);
 
 // Function to construct the Vandermonde matrix
 function VanMatrix(pts1, pts2)
-
     assert #pts1 eq #pts2;
     a := [Eltseq(p) cat [0,0,0] : p in pts1];
     b := [[0,0] cat Eltseq(p) : p in pts2];
@@ -34,7 +33,6 @@ end function;
 // Function to turn the kernel into a block diagonal tensor.
 
 function KernelToTensor(ker)
-
     B := Basis(ker);
     K := BaseRing(ker);
     mons := mons2R cat mons2S;
@@ -48,13 +46,11 @@ function KernelToTensor(ker)
     vars := [x0,x1,x2,x3];
     
     M := &+[vars[i]*SymmetricMatrix(quads[i]) : i in [1..4]];
-    return M;
-    
+    return M;    
 end function;
 
 
 function MakeCurve(T)
-
     P := Proj(BaseRing(T));
     A := Submatrix(T, 1, 1, 2, 2);
     B := Submatrix(T, 3, 3, 3, 3);
@@ -110,23 +106,4 @@ X := MakeCurve(KernelToTensor(NullspaceOfTranspose(M)));
 
 assert IsNonSingular(X);
 print Factorization(F);
-
-// Choose 8 points on a conic (y^2-xz)
-// pts := [[t^2, t, 1] where  t := k ! i : i in [1..8]];
-
-
-// Pick a pair of random linear functions
-//l1 := x + 3*y + 7*z;
-//l2 := 5*x + 11*y + 13*z;
-
-//l1 := x;
-//l2 := y;
-
-// Take the image under the random projection
-// mp_pts := [[Evaluate(l1, p), Evaluate(l2, p)] : p in pts];
-
-
-// Check to see if everything is OK
-
-// M := VanMatrix(mp_pts, pts);
 
