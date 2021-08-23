@@ -103,5 +103,8 @@ procedure Main()
 	WD, GM, subgroups := LoadData();
     end try;
 
-    print BrauerGroupDigest();
+    bgroups := BrauerGroupDigest(GM, subgroups);
+
+    print "Brauer groups that are possible:"
+    print Set(bgroups);
 end procedure;
