@@ -9,5 +9,5 @@ Main();
 
 To run the script to verify the example curve is nonsingular, input into a Magma session:
 ```
-load "moduli-16.m";
+load "example-curve.m";
 ```
